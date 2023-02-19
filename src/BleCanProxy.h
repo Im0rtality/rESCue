@@ -1,6 +1,7 @@
 #ifndef RESCUE_BLECANPROXY_H
 #define RESCUE_BLECANPROXY_H
 
+#include <string>
 #include "Arduino.h"
 #include "config.h"
 #include <Logger.h>

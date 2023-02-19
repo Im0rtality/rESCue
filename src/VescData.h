@@ -6,6 +6,7 @@
 #define RESCUE_VESCDATA_H
 
 #include <cstdint>
+#include <string>
 
 struct VescData {
     uint8_t majorVersion;
