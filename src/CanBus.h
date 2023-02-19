@@ -61,7 +61,7 @@ class CanBus {
       uint32_t RECV_FILL_RX_BUFFER_LONG_PROXY;
       uint32_t RECV_PROCESS_RX_BUFFER_PROXY;
       boolean initialized = false;
-      int interval = 500;
+      int interval = 5000; // TODO: expose this as a build flag
       int initRetryCounter = 5;
       unsigned long lastDump = 0;
       unsigned long lastRetry = 0;
