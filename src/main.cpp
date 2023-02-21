@@ -23,7 +23,9 @@ int lastFake = 4000;
 int lastFakeCount = 0;
 VescData vescData;
 
+#ifndef CANBUS_ENABLED
 HardwareSerial vesc(2);
+#endif
 
 ILedController *ledController;
 
@@ -77,11 +79,13 @@ void setup() {
 
   ledController = LedControllerFactory::getInstance()->createLedController(&vescData);
 
+#ifndef CANBUS_ENABLED
   pinMode(PIN_FORWARD, INPUT);
   pinMode(PIN_BACKWARD, INPUT);
   pinMode(PIN_BRAKE, INPUT);
-
   vesc.begin(VESC_BAUD_RATE, SERIAL_8N1, VESC_RX_PIN, VESC_TX_PIN, false);
+#endif
+
   delay(50);
 #ifdef CANBUS_ENABLED
   // initializes the CANBUS
