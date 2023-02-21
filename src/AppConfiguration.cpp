@@ -61,7 +61,7 @@ void AppConfiguration::readPreferences() {
     config.ledType = doc["ledType"] | "RGB";
     config.ledFrequency = doc["ledFrequency"] | "KHZ800";
     config.idleLightTimeout = doc["idleLightTimeout"] | 60000;
-    config.logLevel = doc["logLevel"] | Logger::VERBOSE;
+    config.logLevel = doc["logLevel"] | DEFAULT_LOG_LEVEL;
     config.mtuSize = doc["mtuSize"] | 512;
     config.saveConfig = false;
     config.sendConfig = false;

@@ -51,6 +51,10 @@
 
 ////#define FAKE_VESC_ENABLED
 
+#ifndef DEFAULT_LOG_LEVEL
+#define DEFAULT_LOG_LEVEL Logger::WARNING
+#endif
+
 #endif //__CONFIG_H__
 
 /**** Calibration / Calculation of VOLTAGE_DIVIDER_CONSTANT ****
