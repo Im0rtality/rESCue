@@ -54,7 +54,7 @@ void CanBus::loop() {
         initRetryCounter--;
         lastRetry = millis();
         if(initRetryCounter == 0) {
-            Logger::error("CANBUS initialization failed");
+            Logger::error(LOG_TAG_CANBUS, "initialization failed");
         }
     }
 

@@ -9,16 +9,16 @@ void CanDevice::init() {
 
     // Install TWAI driver
     if (twai_driver_install(&g_config, &t_config, &f_config) == ESP_OK) {
-        printf("Driver installed\n");
+        Logger::notice(LOG_TAG_CANDEVICE, "Driver installed");
     } else {
-        printf("Failed to install driver\n");
+        Logger::error(LOG_TAG_CANDEVICE, "Failed to install driver");
         return;
     }
     // Start TWAI driver
     if (twai_start() == ESP_OK) {
-        printf("Driver started\n");
+        Logger::notice(LOG_TAG_CANDEVICE, "Driver started");
     } else {
-        printf("Failed to start driver\n");
+        Logger::error(LOG_TAG_CANDEVICE, "Failed to start driver");
         return;
     }
 }
@@ -42,7 +42,7 @@ void CanDevice::sendCanFrame(const twai_message_t *p_frame) {
     xSemaphoreTake(mutex_v, portMAX_DELAY);
     //Queue message for transmission
     if (twai_transmit(p_frame, pdMS_TO_TICKS(10)) != ESP_OK) {
-        printf("Failed to queue message for transmission\n");
+        Logger::error(LOG_TAG_CANDEVICE, "Failed to queue message for transmission");
     }
     xSemaphoreGive(mutex_v);
     delay(1); // This is needed, dunno why!

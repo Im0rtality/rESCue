@@ -64,14 +64,13 @@ void fakeCanbusValues() {
 #endif
 
 void setup() {
+  Serial.begin(115200);
+
   Logger::setOutputFunction(localLogger);
 
   AppConfiguration::getInstance()->readPreferences();
-    AppConfiguration::getInstance()->config.sendConfig = false;
+  AppConfiguration::getInstance()->config.sendConfig = false;
   Logger::setLogLevel(AppConfiguration::getInstance()->config.logLevel);
-  if(Logger::getLogLevel() != Logger::SILENT) {
-      Serial.begin(VESC_BAUD_RATE);
-  }
 
   if(AppConfiguration::getInstance()->config.otaUpdateActive) {
      return;
@@ -173,14 +172,24 @@ void loop() {
 #endif
 }
 
+
 void localLogger(Logger::Level level, const char* module, const char* message) {
-  Serial.print(F("FWC: ["));
-  Serial.print(Logger::asString(level));
-  Serial.print(F("] "));
+    const char* const LOG_LEVEL_SHORT_STRINGS[] PROGMEM =
+        {
+                "V",
+                "N",
+                "W",
+                "E",
+                "F",
+                " "
+        };
+
+  Serial.printf("[%6lu][%s]", (unsigned long) (esp_timer_get_time() / 1000ULL), LOG_LEVEL_SHORT_STRINGS[level]);
   if (strlen(module) > 0) {
-      Serial.print(F(": "));
+      Serial.print(F("["));
       Serial.print(module);
-      Serial.print(" ");
+      Serial.print(F("]"));
   }
+  Serial.print(": ");
   Serial.println(message);
 }
